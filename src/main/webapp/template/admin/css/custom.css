@@ -1,0 +1,10 @@
+/*------------------------------------------------------------------
+    File Name: custom.css
+-------------------------------------------------------------------*/
+
+/** ADD YOUR AWESOME CODES HERE **/
+
+.form-group .f-label {
+	margin-bottom: 0px;
+	min-width: 50px;
+}
