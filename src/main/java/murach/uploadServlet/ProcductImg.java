@@ -57,8 +57,8 @@ public class ProcductImg extends HttpServlet {
 			
 			for(FileItem item : items) {
 				if(item.getSize() > 0 && item.getName() != null) {
-					String uploadPath = getServletContext().getRealPath("");
-					File file = new File(uploadPath + "/images/" + productModel.getDatetimeimg()+ item.getName());
+					String uploadPath = getServletContext().getRealPath("/images");
+					File file = new File(uploadPath + "/" + productModel.getDatetimeimg()+ item.getName());
 					item.write(file);
 				}
 			}

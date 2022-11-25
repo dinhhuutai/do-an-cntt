@@ -47,12 +47,24 @@
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
 						<div class="wrap-table-shopping-cart">
 							<table class="table-shopping-cart">
-								<tr class="table_head">
-									<th class="column-1">Code</th>
-									<th class="column-2">Name</th>
-									<th class="column-3">Price</th>
-									<th class="column-4">Quantity</th>
-									<th class="column-5">Total</th>
+								<tr style="
+    background-color: #f63;
+" class="table_head">
+									<th style="
+    color: #fff;
+" class="column-1">Code</th>
+									<th style="
+    color: #fff;
+" class="column-2">Name</th>
+									<th style="
+    color: #fff;
+" class="column-3">Price</th>
+									<th style="
+    color: #fff;
+" class="column-4">Quantity</th>
+									<th style="
+    color: #fff;
+" class="column-5">Total</th>
 									<c:if test="${ not empty wait }">
 									<th class="column-6"></th>
 									</c:if>

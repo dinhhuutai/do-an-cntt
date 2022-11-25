@@ -94,9 +94,8 @@
 				</script>
 				All rights reserved | Made with <i class="fa fa-heart-o"
 					aria-hidden="true"></i> by <a
-					href="http://webgroup13.herokuapp.com/?fbclid=IwAR1s08RIhcpXtBGmX2xaqqLSjz4LcvLqmoUEtb3Z75WclZXxLOF3zF6vHNU"
-					target="_blank">Group 13</a> <a href="https://themewagon.com"
-					target="_blank"></a>
+					href=""
+					target="_blank">Group 1</a>
 				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
 			</p>

@@ -15,6 +15,7 @@ import murach.model.OrderDetailModel;
 import murach.model.OrdersModel;
 import murach.model.ProductCart;
 import murach.model.UserModel;
+import murach.sendMail.SendMail;
 import murach.service.IOrderDetailService;
 import murach.service.IOrdersService;
 import murach.service.IProductService;
@@ -36,6 +37,7 @@ public class OrdersAPI extends HttpServlet {
 	
 	@Inject
 	private IProductService productService;
+	
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -77,7 +79,7 @@ public class OrdersAPI extends HttpServlet {
 			Long id = ((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getId();
 			
 			
-			// Cập nhật lại address and phone cho user
+			// Cáº­p nháº­t láº¡i address and phone cho user
 			userService.updateAddressAndPhone(address, phone, id, modifieddate, modifiedby);
 			
 			
@@ -88,13 +90,14 @@ public class OrdersAPI extends HttpServlet {
 			ordersModel.setPhone(phone);
 			ordersModel.setTotal((Long) SessionUtil.getInstance().getValue(req, "totalPrice"));
 			
-			// Thêm đơn hàng
+			// ThÃªm Ä‘Æ¡n hÃ ng
 			ordersModel = ordersService.save(ordersModel);
 			
 			Long ordersid = ordersModel.getId();
 			
 			
-			// Thêm chi tiết đơn hàng
+			
+			// ThÃªm chi tiáº¿t Ä‘Æ¡n hÃ ng
 			for (ProductCart cart : carts) {
 				OrderDetailModel orderDetailModel = new OrderDetailModel();
 				
@@ -107,7 +110,9 @@ public class OrdersAPI extends HttpServlet {
 				orderDetailService.save(orderDetailModel);
 			}
 			
-			// Cập nhật lại popularity in product
+
+			
+			// Cáº­p nháº­t láº¡i popularity in product
 
 			for (ProductCart cart : carts) {
 				
@@ -117,11 +122,18 @@ public class OrdersAPI extends HttpServlet {
 				productService.updatePopularity(cart.getId(), popularity);
 				
 			}
+
+			List<OrderDetailModel> products = orderDetailService.findAllByOrdersId(ordersid);
 			
-			// Xóa sản phẩm trong giỏ hàng khi mua thành công
+			SendMail.OrdersSendMail(((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getEmail(), address, phone, products, ordersModel.getTotal());
+			
+			
+			// XÃ³a sáº£n pháº©m trong giá»� hÃ ng khi mua thÃ nh cÃ´ng
 			SessionUtil.getInstance().removeValue(req, "cart");
 			SessionUtil.getInstance().removeValue(req, "cartSize");
 			SessionUtil.getInstance().removeValue(req, "totalPrice");
+			
+			
 			
 		}
 		

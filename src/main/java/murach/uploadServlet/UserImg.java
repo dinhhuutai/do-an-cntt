@@ -35,8 +35,8 @@ public class UserImg extends HttpServlet {
 
 			for (FileItem item : items) {
 				if (item.getSize() > 0 && item.getName() != null) {
-					String uploadPath = getServletContext().getRealPath("");
-					File file = new File(uploadPath + "/images/" + userModel.getDatetimeimg() + item.getName());
+					String uploadPath = getServletContext().getRealPath("/images");
+					File file = new File(uploadPath + "/" + userModel.getDatetimeimg() + item.getName());
 
 					item.write(file);
 				}

@@ -34,10 +34,10 @@
     display: block;
 " class="row notification-container">
 			<div <c:if test="${ item.statusOrders == 1 }">style="
-    background-color: #4ce52d;
     color: #151212;
+    box-shadow: 0px 0px 120px 0px #2bff00 inset;
 "</c:if> <c:if test="${ item.statusOrders == 0 }">style="
-    background-color: #f53434;
+    box-shadow: 0px 0px 120px 0px red inset;
     color: #fff;
 "</c:if> class="card notification-card notification-invitation">
 				<div class="card-body">

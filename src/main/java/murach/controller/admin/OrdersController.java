@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import murach.model.NotificationModel;
 import murach.model.OrderDetailModel;
 import murach.model.OrdersModel;
+import murach.model.UserModel;
+import murach.sendMail.SendMail;
 import murach.service.INotificationService;
 import murach.service.IOrderDetailService;
 import murach.service.IOrdersService;
@@ -128,6 +130,15 @@ public class OrdersController extends HttpServlet {
 		String type = req.getParameter("type");
 		String view = "";
 		
+		UserModel userModel =  new UserModel();
+		userModel = userService.findOne(userId);
+		String email = userModel.getEmail();
+		String address = userModel.getAddress();
+		Long phone = userModel.getPhone();
+		
+
+		List<OrderDetailModel> products = orderDetailService.findAllByOrdersId(id);
+		
 		if(type != null && type.equals("confirm")) {
 			
 			ordersService.updateConfirm(id);
@@ -140,6 +151,8 @@ public class OrdersController extends HttpServlet {
 			notificationModel.setUserId(userId);
 			
 			notificationService.save(notificationModel);
+			
+			SendMail.SuccessSendMail(email, address, phone, products, ordersService.findOne(id).getTotal());
 			
 			
 			view = "/admin-orders?type=wait";
@@ -156,6 +169,9 @@ public class OrdersController extends HttpServlet {
 			
 			notificationService.save(notificationModel);
 			
+
+			SendMail.CancelSendMail(email, address, phone, products, ordersService.findOne(id).getTotal());
+			
 			
 			view = "/admin-orders?type=wait";
 		} else if(type != null && type.equals("delivered")) {
@@ -171,7 +187,6 @@ public class OrdersController extends HttpServlet {
 			
 			view = "/admin-orders?type=delivery";
 		}
-		
 		
 
 		resp.sendRedirect(req.getContextPath() + view);

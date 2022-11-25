@@ -36,7 +36,7 @@ public class UserAPI extends HttpServlet {
 		// mapping dữ liệu vào model
 		UserModel updateUser = HttpUtil.of(req.getReader()).toModel(UserModel.class);
 
-		updateUser.setModifiedBy(((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getFullName());
+		updateUser.setModifiedBy(((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getUserName());
 
 		req.getSession().setAttribute("userModel", updateUser);
 
